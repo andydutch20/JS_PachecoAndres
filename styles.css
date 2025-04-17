@@ -1,0 +1,40 @@
+body {
+    background-color: darksalmon;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    padding: 20px;
+}
+
+
+h1 {
+    color: rgb(232, 226, 226);
+    text-align: center;
+}
+
+
+
+.sub-header {
+    text-align: center;
+    background-color: forestgreen;
+
+}
+
+.paginapartes {
+    color: blanchedalmond;
+    size: 10px;
+}
+
+.carritoicono {
+    display: flex;
+    
+}
