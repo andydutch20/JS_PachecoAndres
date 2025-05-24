@@ -1,124 +1,213 @@
+/* ========== GLOBAL STYLES ========== */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-
-
-html body {
-    background-color: darksalmon;
-    padding: 0;
-    height: 100%;
-    width: 100%;
+html,
+body {
+  background-color: darksalmon;
+  height: 100%;
+  width: 100%;
+  font-family: Arial, sans-serif;
 }
-
-
 
 .wrapper {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
+/* ========== HEADER ========== */
 header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgb(122, 29, 29);
-    padding: 20px;
-    width: 100%;
+  background-color: rgb(122, 29, 29);
+  padding: 20px;
+  text-align: center;
 }
-
 
 h1 {
-    color: rgb(232, 226, 226);
-
+  color: rgb(232, 226, 226);
 }
 
-
-
+/* ========== NAVIGATION ========== */
 .sub-header {
-    background-color: forestgreen;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 20px;
-  }
-  
-  .nav-links {
-    display: flex;
-    justify-content: space-evenly;
-    flex: 1;
-    margin-right: 20px;
-  }
-  
-  .nav-links a {
-    flex: 1;
-    text-align: center;
-    text-decoration: none;
-    color: white;
-    font-weight: bold;
-    font-size: 18px;
-  }
-  
-  .carritoicono {
-    width: 32px;
-    height: 32px;
-    cursor: pointer;
-  }
-  /*Pagina de compras*/
-
-  .carrito-acciones {
-    display: flex;
-    justify-content: space-between;
+  background-color: forestgreen;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
 }
 
-.carrito-acciones-vaciar {
-    border: 0;
-    padding: 1rem;
-    border-radius: 1rem;
-    text-transform: uppercase;
-    cursor: pointer;
+.nav-links {
+  display: flex;
+  justify-content: space-evenly;
+  flex: 1;
+  margin-right: 20px;
 }
 
-.carrito-acciones-derecha {
-    display: flex;
+.nav-links a {
+  flex: 1;
+  text-align: center;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.carritoicono {
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+
+/* ========== MAIN AREA ========== */
+main {
+  flex: 1;
+  padding: 20px;
+}
+
+/* ========== FOOTER ========== */
+.footer {
+  padding: 20px;
+  background-color: rgb(13, 17, 16);
+  color: white;
+  text-align: center;
+  width: 100%;
+}
+
+/* ========== PRODUCT LISTING ========== */
+#product-list {
+  display: flex;              /* make it flex container */
+  gap: 20px;                 /* space between items */
+  padding: 20px;
+  overflow-x: auto;          /* horizontal scroll */
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  white-space: nowrap;       /* prevent wrapping */
+}
+
+.product {
+  flex: 0 0 auto;            /* do NOT shrink or grow, fixed width */
+  width: 220px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  box-sizing: border-box;
+  transition: transform 0.2s ease;
+}
+
+.product:hover {
+  transform: scale(1.05);
+}
+
+.product img {
+  display: block;
+  margin: 0 auto;
+  width: 180px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+
+
+
+
+.product button {
+  margin-top: 10px;
+  padding: 8px 12px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.product button:hover {
+  background-color: #45a049;
+}
+
+
+
+/* ========== CART / CHECKOUT PAGE ========== */
+#cart-items {
+  padding: 20px;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #f5f5f5;
+}
+
+.cart-item img {
+  border-radius: 8px;
+  width: 100px;
+  height: auto;
+}
+
+.cart-item p {
+  flex: 1;
+}
+
+.cart-item button {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+#total {
+  font-size: 20px;
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+#total button {
+  margin-top: 15px;
+  background: #555;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* ========== OPTIONAL: CART ACTION STYLES (IF USED) ========== */
+.carrito-acciones {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.carrito-acciones-vaciar,
+.carrito-acciones-comprar {
+  border: none;
+  padding: 1rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 1rem;
 }
 
 .carrito-acciones-total {
-    display: flex;
-    padding: 1rem;
-    text-transform: uppercase;
-    border-top-left-radius: 1rem;
-    border-bottom-left-radius: 1rem;
-    gap: 1rem;
+  display: flex;
+  padding: 1rem;
+  text-transform: uppercase;
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+  gap: 1rem;
 }
 
-.carrito-acciones-comprar {
-    border: 0;
-    padding: 1rem;
-    text-transform: uppercase;
-    cursor: pointer;
-    border-top-right-radius: 1rem;
-    border-bottom-right-radius: 1rem;
+.carrito-acciones-derecha {
+  display: flex;
 }
-
-/*////////////////////////////////*/
-
-
-
-  
-main {
-    flex: 1; 
-    padding: 20px; }
-
-
-.footer {
-    padding: 20px;
-    background-color: rgb(13, 17, 16);
-    bottom: 0;
-    width:100%;
-}  
-
-
