@@ -78,17 +78,17 @@ main {
 
 /* ========== PRODUCT LISTING ========== */
 #product-list {
-  display: flex;              /* make it flex container */
-  gap: 20px;                 /* space between items */
+  display: flex;              
+  gap: 20px;                
   padding: 20px;
-  overflow-x: auto;          /* horizontal scroll */
+  overflow-x: auto;          
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
-  white-space: nowrap;       /* prevent wrapping */
+  white-space: nowrap;       
 }
 
 .product {
-  flex: 0 0 auto;            /* do NOT shrink or grow, fixed width */
+  flex: 0 0 auto;            
   width: 220px;
   border: 1px solid #ccc;
   padding: 10px;
@@ -183,31 +183,3 @@ main {
   cursor: pointer;
 }
 
-/* ========== OPTIONAL: CART ACTION STYLES (IF USED) ========== */
-.carrito-acciones {
-  display: flex;
-  justify-content: space-between;
-  padding: 1rem;
-}
-
-.carrito-acciones-vaciar,
-.carrito-acciones-comprar {
-  border: none;
-  padding: 1rem;
-  text-transform: uppercase;
-  cursor: pointer;
-  border-radius: 1rem;
-}
-
-.carrito-acciones-total {
-  display: flex;
-  padding: 1rem;
-  text-transform: uppercase;
-  border-top-left-radius: 1rem;
-  border-bottom-left-radius: 1rem;
-  gap: 1rem;
-}
-
-.carrito-acciones-derecha {
-  display: flex;
-}
