@@ -1,4 +1,5 @@
-// 🔹 Add to Cart function for partes.html
+// Funcion de agregar productos al carrito
+
 function addToCart(button) {
   const productDiv = button.parentElement;
   const id = productDiv.getAttribute("data-id");
@@ -15,7 +16,8 @@ function addToCart(button) {
   alert(`${name} added to cart!`);
 }
 
-// 🔹 Show cart contents if we're on carrito.html
+// Contenido en pagina de carrito
+
 document.addEventListener("DOMContentLoaded", () => {
   const cartItemsDiv = document.getElementById("cart-items");
   const totalDiv = document.getElementById("total");
@@ -43,7 +45,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       totalDiv.textContent = `Total: $${total}`;
 
-      // Add clear cart button
+      // Buton de limpiar el carrito
+
+
       const clearBtn = document.createElement("button");
       clearBtn.textContent = "Clear Cart";
       clearBtn.onclick = clearCart;
@@ -53,15 +57,19 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// 🔹 Remove a specific item by index
+// Remover productos del carrito
+
+
 function removeItem(index) {
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
   cart.splice(index, 1);
   localStorage.setItem("cart", JSON.stringify(cart));
-  location.reload(); // Refresh to update UI
+  location.reload(); 
 }
 
-// 🔹 Clear the whole cart
+// Limpiar el carrito completo
+
+
 function clearCart() {
   localStorage.removeItem("cart");
   location.reload(); 
