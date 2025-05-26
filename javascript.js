@@ -9,6 +9,8 @@ function addToCart(button) {
 
   const product = { id, name, price, image };
 
+  console.log("Adding to cart:", product); 
+
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
   cart.push(product);
   localStorage.setItem("cart", JSON.stringify(cart));
@@ -24,6 +26,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (cartItemsDiv && totalDiv) {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    console.log("Cart loaded from localStorage:", cart); 
 
     if (cart.length === 0) {
       cartItemsDiv.innerHTML = "<p>Your cart is empty.</p>";
@@ -45,9 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       totalDiv.textContent = `Total: $${total}`;
 
-      // Buton de limpiar el carrito
-
-
+      // Boton de limpiar el carrito
       const clearBtn = document.createElement("button");
       clearBtn.textContent = "Clear Cart";
       clearBtn.onclick = clearCart;
@@ -59,8 +61,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Remover productos del carrito
 
-
 function removeItem(index) {
+  console.log("Removing item at index:", index); 
+
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
   cart.splice(index, 1);
   localStorage.setItem("cart", JSON.stringify(cart));
@@ -69,8 +72,9 @@ function removeItem(index) {
 
 // Limpiar el carrito completo
 
-
 function clearCart() {
+  console.log("Cart cleared."); 
+
   localStorage.removeItem("cart");
   location.reload(); 
 }
