@@ -67,6 +67,22 @@ main {
   padding: 20px;
 }
 
+#project-description {
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 10px;
+  max-width: 800px;
+  margin: 0 auto 40px;
+  font-family: Arial, sans-serif;
+}
+#project-description h2 {
+  color: #222;
+}
+#project-description p {
+  line-height: 1.6;
+  margin-top: 10px;
+}
+
 /* footer  */
 .footer {
   padding: 20px;
