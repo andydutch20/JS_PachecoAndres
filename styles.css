@@ -7,7 +7,7 @@
 
 html,
 body {
-  background-color: darksalmon;
+  background-color: rgba(53, 59, 64, 0.554);
   height: 100%;
   width: 100%;
   font-family: Arial, sans-serif;
@@ -21,7 +21,7 @@ body {
 
 /* Header*/
 header {
-  background-color: rgb(122, 29, 29);
+  background-color: rgb(17, 98, 184);
   padding: 20px;
   text-align: center;
 }
