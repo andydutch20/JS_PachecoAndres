@@ -203,3 +203,15 @@ main {
   cursor: pointer;
 }
 
+#message {
+  padding: 10px;
+  margin: 0;
+  font-weight: bold;
+  background-color: #333;
+  border-radius: 5px;
+  display: none;
+}
+
+#message:empty {
+  display: none;
+}
