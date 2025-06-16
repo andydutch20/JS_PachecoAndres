@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
       remember ? localStorage.setItem("rememberedUser", username) : localStorage.removeItem("rememberedUser");
 
       mostrarBienvenida(username);
-      mostrarMensaje("Inicio de sesión exitoso.", "success");
+      mostrarMensaje("Login Success.", "success");
       ocultarModalLogin();
 
       const pending = JSON.parse(sessionStorage.getItem("pendingProduct"));
@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
         sessionStorage.removeItem("pendingProduct");
       }
     } else {
-      loginMessage.textContent = "Usuario o contraseña inválidos.";
+      loginMessage.textContent = "Incorrect username or password.";
       loginMessage.style.color = "red";
     }
   });
@@ -81,14 +81,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let users = JSON.parse(localStorage.getItem("users")) || [];
     if (users.find(u => u.username === regUsername)) {
-      mostrarMensaje("El nombre de usuario ya existe.", "error");
+      mostrarMensaje("Username already exists.", "error");
       return;
     }
 
     users.push({ username: regUsername, password: regPassword });
     localStorage.setItem("users", JSON.stringify(users));
 
-    mostrarMensaje("Registro exitoso. Ahora puedes iniciar sesión.", "success");
+    mostrarMensaje("Success. Now you can log in.", "success");
     registerForm.reset();
     registerSection.classList.add("hidden");
     loginSection.classList.remove("hidden");
@@ -100,13 +100,13 @@ document.addEventListener("DOMContentLoaded", () => {
   // Cerrar sesión
   logoutBtn.addEventListener("click", () => {
     sessionStorage.removeItem("loggedInUser");
-    mostrarMensaje("Sesión cerrada.", "info");
+    mostrarMensaje("Session ended.", "info");
     location.reload();
   });
 
   // Mostrar bienvenida
   function mostrarBienvenida(username) {
-    welcomeMessage.textContent = `Bienvenido, ${username}!`;
+    welcomeMessage.textContent = `Welcome, ${username}!`;
     logoutBtn.classList.remove("hidden");
     loginIcon.classList.add("hidden");
   }
