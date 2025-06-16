@@ -29,41 +29,48 @@ function clearMessageStorage() {
   localStorage.removeItem("messageType");
 }
 
-// Evento que se ejecuta al cargar el DOM
-document.addEventListener("DOMContentLoaded", () => {
-  const cartItemsDiv = document.getElementById("cart-items");
-  const totalDiv = document.getElementById("total");
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+// Variables globales para facilitar acceso y manipulación
+let cart = [];
+const cartItemsDiv = document.getElementById("cart-items");
+const totalDiv = document.getElementById("total");
 
-  // Si el carrito está vacío
+// Función para renderizar todo el carrito
+function renderCart() {
+  if (!cartItemsDiv || !totalDiv) return;
+
+  cartItemsDiv.innerHTML = "";
+
   if (cart.length === 0) {
     showMessage("");
-    if (cartItemsDiv) cartItemsDiv.innerHTML = "<p>Your cart is empty.</p>";
-    if (totalDiv) totalDiv.textContent = "";
+    cartItemsDiv.innerHTML = "<p>Your cart is empty.</p>";
+    totalDiv.textContent = "";
     return;
   }
 
   showMessage("Cart Ready.", "white", "cart");
 
-  // Calcular total y renderizar los productos del carrito
-  const total = cart.reduce((sum, item, index) => {
-    renderCartItem(item, cartItemsDiv, index);
+  let total = 0;
+  cart.forEach((item, index) => {
+    renderCartItem(item, index);
     const price = parseFloat(item.price);
-    return sum + (isNaN(price) ? 0 : price);
-  }, 0);
+    total += isNaN(price) ? 0 : price;
+  });
 
-  totalDiv.textContent = `Total: $${total}`;
+  totalDiv.textContent = `Total: $${total.toFixed(2)}`;
 
-  // Crear el botón de limpiar carrito con su evento
-  const clearBtn = document.createElement("button");
-  clearBtn.textContent = "Clear Cart";
-  clearBtn.addEventListener("click", clearCart);
-  totalDiv.appendChild(document.createElement("br"));
-  totalDiv.appendChild(clearBtn);
-});
+  // Añadir botón de limpiar carrito si no existe
+  if (!document.getElementById("clear-cart-btn")) {
+    const clearBtn = document.createElement("button");
+    clearBtn.id = "clear-cart-btn";
+    clearBtn.textContent = "Clear Cart";
+    clearBtn.addEventListener("click", clearCart);
+    totalDiv.appendChild(document.createElement("br"));
+    totalDiv.appendChild(clearBtn);
+  }
+}
 
-// Renderizar cada producto del carrito
-function renderCartItem(item, container, index) {
+// Renderizar un item individual del carrito
+function renderCartItem(item, index) {
   const itemDiv = document.createElement("div");
   itemDiv.className = "cart-item";
   itemDiv.innerHTML = `
@@ -71,10 +78,26 @@ function renderCartItem(item, container, index) {
     <p><strong>${item.name}</strong> - $${item.price}</p>
     <button class="remove-btn" data-index="${index}">Remove</button>
   `;
-  container.appendChild(itemDiv);
+  cartItemsDiv.appendChild(itemDiv);
 }
 
-// Delegación de eventos para los botones de "Remove"
+// Función para remover un item y actualizar vista
+function removeItem(index) {
+  cart.splice(index, 1);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  showMessage("Item removed from cart.", "orange", "cart");
+  renderCart();
+}
+
+// Limpiar todo el carrito y actualizar vista
+function clearCart() {
+  cart = [];
+  localStorage.removeItem("cart");
+  showMessage("Cart cleared.", "red", "cart");
+  renderCart();
+}
+
+// Delegación de eventos para remover items (botones dinámicos)
 document.addEventListener("click", function (e) {
   if (e.target.classList.contains("remove-btn")) {
     const index = parseInt(e.target.getAttribute("data-index"));
@@ -82,18 +105,8 @@ document.addEventListener("click", function (e) {
   }
 });
 
-// Remover producto individual del carrito
-function removeItem(index) {
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
-  cart.splice(index, 1);
-  localStorage.setItem("cart", JSON.stringify(cart));
-  showMessage("Item removed from cart.", "orange", "cart");
-  location.reload();
-}
-
-// Limpiar el carrito completo
-function clearCart() {
-  localStorage.removeItem("cart");
-  showMessage("Cart cleared.", "red", "cart");
-  location.reload();
-}
+// Evento al cargar DOM para cargar el carrito e inicializar
+document.addEventListener("DOMContentLoaded", () => {
+  cart = JSON.parse(localStorage.getItem("cart")) || [];
+  renderCart();
+});

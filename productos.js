@@ -1,5 +1,14 @@
 // Función para agregar productos al carrito
 function addToCart(button) {
+  // Verificar si usuario está logueado
+  const user = sessionStorage.getItem("loggedInUser");
+  if (!user) {
+    showMessage("You must log in to add products to the cart.", "red", "product");
+    // Aquí puedes llamar a la función que muestre el modal de login, si tienes
+    // showLoginModal();
+    return; // Salir para que no agregue nada
+  }
+
   const productDiv = button.parentElement;
   const id = productDiv.getAttribute("data-id");
   const name = productDiv.getAttribute("data-name");
