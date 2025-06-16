@@ -1,43 +1,41 @@
-// Utilidades de mensajes (mostrar, guardar y limpiar mensajes en el DOM y LocalStorage)
-
-// Función para mostrar mensajes en pantalla y guardarlos en localStorage
+// Función utilitaria para mostrar mensajes
 function showMessage(text, color = "green", type = "cart") {
-  const messageDiv = document.getElementById("message"); // Obtener el div de mensajes
-  if (!messageDiv) return; // Si no existe el div, no hace nada
+  const messageDiv = document.getElementById("message");
+  if (!messageDiv) return;
 
-  if (text) { // Si hay texto, mostramos el mensaje
+  if (text) {
     messageDiv.textContent = text;
     messageDiv.style.color = color;
     messageDiv.style.display = "block";
-    saveMessageToStorage(text, color, type); // Guardamos el mensaje en el almacenamiento local
-  } else { // Si no hay texto, limpiamos el mensaje
+    saveMessageToStorage(text, color, type);
+  } else {
     clearMessageStorage();
     messageDiv.textContent = "";
     messageDiv.style.display = "none";
   }
 }
 
-// Guardar los mensajes en el localStorage para mantener el estado entre páginas
+// Guardar mensaje en el localStorage
 function saveMessageToStorage(text, color, type) {
   localStorage.setItem("messageText", text);
   localStorage.setItem("messageColor", color);
   localStorage.setItem("messageType", type);
 }
 
-// Eliminar los mensajes del localStorage
+// Limpiar mensaje del localStorage
 function clearMessageStorage() {
   localStorage.removeItem("messageText");
   localStorage.removeItem("messageColor");
   localStorage.removeItem("messageType");
 }
 
-// Al cargar la página, renderizamos los productos que hay en el carrito
+// Evento que se ejecuta al cargar el DOM
 document.addEventListener("DOMContentLoaded", () => {
-  const cartItemsDiv = document.getElementById("cart-items"); // Contenedor de productos del carrito
-  const totalDiv = document.getElementById("total"); // Contenedor del total
-  const cart = JSON.parse(localStorage.getItem("cart")) || []; // Obtenemos el carrito desde el localStorage
+  const cartItemsDiv = document.getElementById("cart-items");
+  const totalDiv = document.getElementById("total");
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-  // Si el carrito está vacío, mostramos el mensaje de carrito vacío
+  // Si el carrito está vacío
   if (cart.length === 0) {
     showMessage("");
     if (cartItemsDiv) cartItemsDiv.innerHTML = "<p>Your cart is empty.</p>";
@@ -45,50 +43,57 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  // Si hay productos, mostramos el mensaje de carrito cargado
-  showMessage("Cart ready.", "white", "cart");
+  showMessage("Cart Ready.", "white", "cart");
 
-  // Renderizamos todos los productos usando forEach (Higher Order Function)
-  cart.forEach((item, index) => renderCartItem(item, cartItemsDiv, index));
+  // Calcular total y renderizar los productos del carrito
+  const total = cart.reduce((sum, item, index) => {
+    renderCartItem(item, cartItemsDiv, index);
+    const price = parseFloat(item.price);
+    return sum + (isNaN(price) ? 0 : price);
+  }, 0);
 
-  // Calculamos el total usando reduce (Higher Order Function)
-  const total = cart.reduce((sum, item) => sum + item.price, 0);
-
-  // Mostramos el total de la compra
   totalDiv.textContent = `Total: $${total}`;
 
-  // Creamos el botón para limpiar el carrito
+  // Crear el botón de limpiar carrito con su evento
   const clearBtn = document.createElement("button");
   clearBtn.textContent = "Clear Cart";
-  clearBtn.onclick = clearCart;
+  clearBtn.addEventListener("click", clearCart);
   totalDiv.appendChild(document.createElement("br"));
   totalDiv.appendChild(clearBtn);
 });
 
-// Función para renderizar cada producto del carrito en el DOM
+// Renderizar cada producto del carrito
 function renderCartItem(item, container, index) {
   const itemDiv = document.createElement("div");
   itemDiv.className = "cart-item";
   itemDiv.innerHTML = `
     <img src="${item.image}" alt="${item.name}" style="width: 100px; height: auto;">
     <p><strong>${item.name}</strong> - $${item.price}</p>
-    <button onclick="removeItem(${index})">Remove</button>
+    <button class="remove-btn" data-index="${index}">Remove</button>
   `;
   container.appendChild(itemDiv);
 }
 
-// Función para eliminar un producto específico del carrito
+// Delegación de eventos para los botones de "Remove"
+document.addEventListener("click", function (e) {
+  if (e.target.classList.contains("remove-btn")) {
+    const index = parseInt(e.target.getAttribute("data-index"));
+    removeItem(index);
+  }
+});
+
+// Remover producto individual del carrito
 function removeItem(index) {
-  const cart = JSON.parse(localStorage.getItem("cart")) || []; // Obtenemos el carrito
-  cart.splice(index, 1); // Eliminamos el producto por índice
-  localStorage.setItem("cart", JSON.stringify(cart)); // Actualizamos el carrito
-  showMessage("Item removed.", "orange", "cart"); // Mostramos mensaje
-  location.reload(); // Recargamos la página para actualizar la vista
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  cart.splice(index, 1);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  showMessage("Item removed from cart.", "orange", "cart");
+  location.reload();
 }
 
-// Función para vaciar todo el carrito
+// Limpiar el carrito completo
 function clearCart() {
-  localStorage.removeItem("cart"); // Eliminamos el carrito del localStorage
-  showMessage("Cart cleared.", "red", "cart"); // Mostramos mensaje
-  location.reload(); // Recargamos la página para actualizar la vista
+  localStorage.removeItem("cart");
+  showMessage("Cart cleared.", "red", "cart");
+  location.reload();
 }

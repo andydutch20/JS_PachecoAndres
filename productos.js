@@ -1,74 +1,67 @@
-// Utilidades de mensajes (mostrar, guardar y limpiar mensajes para la página de productos)
+// Función para agregar productos al carrito
+function addToCart(button) {
+  const productDiv = button.parentElement;
+  const id = productDiv.getAttribute("data-id");
+  const name = productDiv.getAttribute("data-name");
+  const price = parseFloat(productDiv.getAttribute("data-price"));
+  const image = productDiv.getAttribute("data-image");
 
-// Función para mostrar mensajes en pantalla y guardar el mensaje en el localStorage
+  // Validación defensiva: comprobar que el precio es un número
+  if (isNaN(price)) {
+    showMessage("Error: Invalid product price.", "red", "product");
+    return;
+  }
+
+  const product = { id, name, price, image };
+
+  // Obtener el carrito desde localStorage
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  cart.push(product);
+  localStorage.setItem("cart", JSON.stringify(cart));
+
+  // Mostrar mensaje en el DOM con el nombre del producto
+  showMessage(`"${name}" has been added to cart!`, "white", "product");
+}
+
+// Función utilitaria para mostrar mensajes
 function showMessage(text, color = "green", type = "product") {
-  const messageDiv = document.getElementById("message"); // Obtenemos el div donde irá el mensaje
-  if (!messageDiv) return; // Si no existe el div, salimos
+  const messageDiv = document.getElementById("message");
+  if (!messageDiv) return;
 
-  if (text) { // Si hay texto, mostramos el mensaje
+  if (text) {
     messageDiv.textContent = text;
     messageDiv.style.color = color;
     messageDiv.style.display = "block";
-    saveMessageToStorage(text, color, type); // Guardamos el mensaje actual en el localStorage
-  } else { // Si no hay texto, limpiamos el mensaje
+    saveMessageToStorage(text, color, type);
+  } else {
     clearMessageStorage();
     messageDiv.textContent = "";
     messageDiv.style.display = "none";
   }
 }
 
-// Guardar el mensaje actual en el localStorage
+// Guardar mensaje en el localStorage
 function saveMessageToStorage(text, color, type) {
   localStorage.setItem("messageText", text);
   localStorage.setItem("messageColor", color);
   localStorage.setItem("messageType", type);
 }
 
-// Limpiar el mensaje almacenado en el localStorage
+// Limpiar mensaje del localStorage
 function clearMessageStorage() {
   localStorage.removeItem("messageText");
   localStorage.removeItem("messageColor");
   localStorage.removeItem("messageType");
 }
 
-// Al cargar la página de productos, verificamos si hay un mensaje previamente guardado
+// Evento que se ejecuta al cargar el DOM
 document.addEventListener("DOMContentLoaded", () => {
-  const messageDiv = document.getElementById("message"); // Obtenemos el div del mensaje
-  if (!messageDiv) return; // Si no existe el div, salimos
+  const storedType = localStorage.getItem("messageType");
+  if (storedType !== "product") showMessage("");
 
-  // Recuperamos los datos del mensaje almacenado
-  const storedText = localStorage.getItem("messageText");
-  const storedColor = localStorage.getItem("messageColor");
-  const messageType = localStorage.getItem("messageType");
-
-  // Si hay un mensaje almacenado y corresponde a la página de productos, lo mostramos
-  if (storedText && messageType === "product") {
-    messageDiv.textContent = storedText;
-    messageDiv.style.color = storedColor || "green";
-    messageDiv.style.display = "block";
-  } else {
-    // Si no hay mensaje o es de otro tipo, lo ocultamos
-    messageDiv.textContent = "";
-    messageDiv.style.display = "none";
-  }
+  // Asignar eventos a todos los botones de "Add to Cart"
+  const buttons = document.querySelectorAll(".add-to-cart");
+  buttons.forEach(button => {
+    button.addEventListener("click", () => addToCart(button));
+  });
 });
-
-// Función para agregar un producto al carrito
-function addToCart(button) {
-  const productDiv = button.parentElement; // Obtenemos el contenedor del producto que fue clickeado
-  const id = productDiv.getAttribute("data-id");
-  const name = productDiv.getAttribute("data-name");
-  const price = parseFloat(productDiv.getAttribute("data-price")); // Convertimos el precio a número (float)
-  const image = productDiv.getAttribute("data-image");
-
-  // Creamos un objeto producto
-  const product = { id, name, price, image };
-
-  // Recuperamos el carrito actual desde el localStorage
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
-  cart.push(product); // Agregamos el nuevo producto
-  localStorage.setItem("cart", JSON.stringify(cart)); // Guardamos el carrito actualizado
-
-  // Mostramos el mensaje de confirmación
-  showMessage(`${name} added to cart!`, "white", "product");
-}
