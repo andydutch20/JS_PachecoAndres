@@ -1,50 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Carrito</title>
+  <link rel="stylesheet" href="../styles.css" />
 </head>
 <body>
-    <div class="wrapper">
+  <div class="wrapper">
     <header>
-        <h1>Hi welcome to my online store</h1>
+      <h1>Hi welcome to my online store</h1>
     </header>
-    
+
     <div id="message" style="display: none;"></div>
 
-
-
-
     <div class="sub-header">
-        <nav class="nav-links">
+      <nav class="nav-links">
         <a href="../index.html">Home</a>
         <a href="../paginas/partes.html">Parts</a>
         <a href="../paginas/bicis-completas.html">Complete Bikes</a>
         <a href="../paginas/carrito.html">
-        <img src="../Iconos/carrito.png"  class="carritoicono" alt="Carrito">
+          <img src="../Iconos/carrito.png" class="carritoicono" alt="Carrito" />
         </a>
-        </nav>
+      </nav>
     </div>
-
-    
-
 
     <main>
-    <div id="cart-items"></div>
-    <h2 id="total"></h2>
+      <div id="cart-items"></div>
+      <h2 id="total"></h2>
 
-
+      <!-- Contenedor de botones del carrito -->
+      <div id="cart-actions" class="cart-actions hidden">
+        <button id="clearCartBtn">Empty cart</button>
+        <button id="completePurchaseBtn">Buy now</button>
+      </div>
     </main>
 
-    <footer class="footer">
+    <!-- Modal de pago simplificado -->
+    <div id="paymentModal" class="modal">
+      <div class="modal-content">
+        <span id="closeModal" class="close">&times;</span>
+        <h2>Payment method</h2>
+        <p id="payment-summary">Total: $0.00</p>
 
-    </footer>
+        <form id="paymentForm">
+          <label><input type="radio" name="method" checked> Pay upon delivery</label><br>
+          <label><input type="radio" name="method"> Bank transfer</label><br>
+          <label><input type="radio" name="method"> PayPal (simulated)</label><br><br>
 
+          <button type="submit">Confirm payment</button>
+        </form>
+      </div>
     </div>
 
-    
-    <script src="../carrito.js"></script>
+    <!-- Mensaje de confirmación de compra -->
+    <div id="confirmationMessage" class="confirmation hidden">
+      <h2>¡Thanks for your purchase!</h2>
+      <p>Your order has been process succesfully.</p>
+      <p id="selectedPaymentMethod"></p>
+      <p id="orderNumber"></p>
+      <button id="goToParts">Go to parts</button>
+    </div>
+
+    <footer class="footer"></footer>
+  </div>
+
+  <script src="../carrito.js"></script>
 </body>
 </html>

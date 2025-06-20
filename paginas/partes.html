@@ -1,24 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../styles.css">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Partes BMX</title>
+  <link rel="stylesheet" href="../styles.css" />
 </head>
-
-
 <body>
-
   <div class="wrapper">
     <header>
-        <h1>Hi welcome to my online store</h1>
+      <h1>Hi welcome to my online store</h1>
     </header>
 
     <div id="message" style="display: none;"></div>
-
-
 
     <div class="sub-header">
       <nav class="nav-links">
@@ -26,37 +20,35 @@
         <a href="../paginas/partes.html">Parts</a>
         <a href="../paginas/bicis-completas.html">Complete Bikes</a>
         <a href="../paginas/carrito.html">
-        <img src="../Iconos/carrito.png"  class="carritoicono" alt="Carrito">
+          <img src="../Iconos/carrito.png" class="carritoicono" alt="Carrito" />
         </a>
       </nav>
     </div>
-    
 
+    <!-- Lista de productos -->
     <div id="product-list">
-<div class="product" data-id="1" data-name="Colony Frame" data-price="250" data-image="/partes bmx/cuadro colony.jpg">
-  <img src="/partes bmx/cuadro colony.jpg" alt="Colony Frame">
-  <p>Colony Frame - $250</p>
-  <button onclick="addToCart(this)">Add to Cart</button>
-</div>
+      <div class="product" data-id="1" data-name="Colony Frame" data-price="250" data-image="/partes bmx/cuadro colony.jpg">
+        <img src="/partes bmx/cuadro colony.jpg" alt="Colony Frame">
+        <p>Colony Frame - $250</p>
+        <button onclick="addToCart(this)">Add to Cart</button>
+      </div>
 
+      <div class="product" data-id="2" data-name="Colony Frame 2" data-price="260" data-image="/partes bmx/cuadro colony 2.jpg">
+        <img src="/partes bmx/cuadro colony 2.jpg" alt="Colony Frame 2">
+        <p>Colony Frame 2 - $260</p>
+        <button onclick="addToCart(this)">Add to Cart</button>
+      </div>
 
-  <div class="product" data-id="2" data-name="Colony Frame 2" data-price="260" data-image="/partes bmx/cuadro colony 2.jpg">
-    <img src="../partes bmx/cuadro colony 2.jpg" alt="Colony Frame 2">
-    <p>Colony Frame 2 - $250</p>
-    <button onclick="addToCart(this)">Add to Cart</button>
-  </div>
-
-  <div class="product" data-id="3" data-name="Fit Miller Frame" data-price="240" data-image="/partes bmx/cuadro fit miller.webp">
-    <img src="../partes bmx/cuadro fit miller.webp" alt="Fit Miller Frame">
-    <p>Fit Miller Frame - $250</p>
-    <button onclick="addToCart(this)">Add to Cart</button>
-  </div>
-
-  
-</div>
+      <div class="product" data-id="3" data-name="Fit Miller Frame" data-price="240" data-image="/partes bmx/cuadro fit miller.webp">
+        <img src="/partes bmx/cuadro fit miller.webp" alt="Fit Miller Frame">
+        <p>Fit Miller Frame - $240</p>
+        <button onclick="addToCart(this)">Add to Cart</button>
+      </div>
+    </div>
 
     <a href="carrito.html">Go to Checkout</a>
+  </div>
 
-<script src="../productos.js"></script>
+  <script src="../productos.js"></script>
 </body>
 </html>

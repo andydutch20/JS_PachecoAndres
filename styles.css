@@ -1,4 +1,4 @@
-/* Estilos globales*/
+/* Estilos globales */
 * {
   margin: 0;
   padding: 0;
@@ -17,6 +17,13 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+}
+
+/* Botón general */
+button {
+  padding: 10px 15px;
+  margin-top: 10px;
+  cursor: pointer;
 }
 
 /* Header */
@@ -95,24 +102,23 @@ main {
 
 /* lista de productos */
 #product-list {
-  display: flex;              
-  gap: 20px;                
+  display: flex;
+  gap: 20px;
   padding: 20px;
-  overflow-x: auto;          
+  overflow-x: auto;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
-  white-space: nowrap;       
+  white-space: nowrap;
 }
 
 .product {
-  flex: 0 0 auto;            
+  flex: 0 0 auto;
   width: 220px;
   border: 1px solid #ccc;
   padding: 10px;
   text-align: center;
   border-radius: 10px;
   background-color: #f9f9f9;
-  box-sizing: border-box;
   transition: transform 0.2s ease;
 }
 
@@ -135,7 +141,6 @@ main {
   background-color: #4CAF50;
   color: white;
   border: none;
-  cursor: pointer;
   border-radius: 5px;
 }
 
@@ -180,7 +185,6 @@ main {
   color: white;
   border: none;
   padding: 6px 10px;
-  cursor: pointer;
   border-radius: 5px;
 }
 
@@ -197,9 +201,9 @@ main {
   padding: 10px 15px;
   border: none;
   border-radius: 6px;
-  cursor: pointer;
 }
 
+/* Mensajes */
 #message {
   padding: 10px;
   margin: 0;
@@ -213,11 +217,25 @@ main {
   display: none;
 }
 
-/* estilos de login */
+.message {
+  text-align: center;
+  margin: 10px auto;
+  padding: 10px 20px;
+  border-radius: 5px;
+  width: fit-content;
+  font-weight: bold;
+}
+
+.message.success { background: #d4edda; color: #155724; }
+.message.error { background: #f8d7da; color: #721c24; }
+.message.info { background: #d1ecf1; color: #0c5460; }
+
+/* Ocultar elementos */
 .hidden {
   display: none !important;
 }
 
+/* estilos de login */
 .login-container {
   width: 350px;
   max-width: 400px;
@@ -262,7 +280,6 @@ button[type="submit"] {
   color: white;
   font-size: 16px;
   border-radius: 5px;
-  cursor: pointer;
 }
 
 button[type="submit"]:hover {
@@ -281,44 +298,103 @@ button[type="submit"]:hover {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.5); /* fondo oscuro */
+  background-color: rgba(0,0,0,0.5);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 999;
 }
 
-button {
-  padding: 10px 15px;
-  margin-top: 10px;
-}
-
-.message {
-  text-align: center;
-  margin: 10px auto;
-  padding: 10px 20px;
-  border-radius: 5px;
-  width: fit-content;
-  font-weight: bold;
-}
-.message.success { background: #d4edda; color: #155724; }
-.message.error { background: #f8d7da; color: #721c24; }
-.message.info { background: #d1ecf1; color: #0c5460; }
-
 .close-btn {
   float: right;
   background: transparent;
   border: none;
   font-size: 18px;
-  cursor: pointer;
 }
 
+/* Enlaces tipo botón */
 .link-button {
   background: none;
   border: none;
   color: #007bff;
   text-decoration: underline;
-  cursor: pointer;
   padding: 0;
   font-size: 1em;
+}
+
+/* Estilos para el fondo oscuro del modal */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+}
+
+/* Estilo de la caja blanca del modal */
+.modal-content {
+  background: #fff;
+  padding: 20px;
+  width: 300px;
+  border-radius: 8px;
+}
+
+/* Botón de cerrar (X) */
+.close {
+  float: right;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/* Estilo del mensaje de confirmación */
+.confirmation {
+  background-color: #e6ffe6;
+  border: 1px solid #66cc66;
+  padding: 20px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+/* Contenedor para los botones de acción del carrito */
+.cart-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.cart-actions button {
+  background: #555;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+}
+
+.cart-actions button:hover {
+  background: #333;
+}
+
+/* Icono de login y texto */
+.login-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.login-icono {
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+
+.login-text {
+  margin-top: 5px;
+  font-size: 14px;
+  color: white;
+  font-weight: bold;
 }
