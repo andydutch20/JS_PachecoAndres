@@ -1,4 +1,20 @@
-// Función para mostrar mensajes en pantalla
+// Variables globales del carrito
+let cart = [];
+const cartItemsDiv = document.getElementById("cart-items");
+const totalDiv = document.getElementById("total");
+const cartActions = document.getElementById("cart-actions");
+const purchaseBtn = document.getElementById("completePurchaseBtn");
+const clearCartBtn = document.getElementById("clearCartBtn");
+const modal = document.getElementById("paymentModal");
+const closeModal = document.getElementById("closeModal");
+const paymentForm = document.getElementById("paymentForm");
+const confirmationMessage = document.getElementById("confirmationMessage");
+const paymentSummary = document.getElementById("payment-summary");
+const selectedPaymentMethod = document.getElementById("selectedPaymentMethod");
+const orderNumber = document.getElementById("orderNumber");
+const goToPartsBtn = document.getElementById("goToParts");
+
+// Mostrar mensajes en pantalla
 function showMessage(text, color = "green", type = "cart") {
   const messageDiv = document.getElementById("message");
   if (!messageDiv) return;
@@ -15,37 +31,20 @@ function showMessage(text, color = "green", type = "cart") {
   }
 }
 
-// Guardar mensaje en localStorage
+// Guardar y limpiar mensaje en localStorage
 function saveMessageToStorage(text, color, type) {
   localStorage.setItem("messageText", text);
   localStorage.setItem("messageColor", color);
   localStorage.setItem("messageType", type);
 }
 
-// Borrar mensaje de localStorage
 function clearMessageStorage() {
   localStorage.removeItem("messageText");
   localStorage.removeItem("messageColor");
   localStorage.removeItem("messageType");
 }
 
-// Variables globales
-let cart = [];
-const cartItemsDiv = document.getElementById("cart-items");
-const totalDiv = document.getElementById("total");
-const cartActions = document.getElementById("cart-actions");
-const purchaseBtn = document.getElementById("completePurchaseBtn");
-const clearCartBtn = document.getElementById("clearCartBtn");
-const modal = document.getElementById("paymentModal");
-const closeModal = document.getElementById("closeModal");
-const paymentForm = document.getElementById("paymentForm");
-const confirmationMessage = document.getElementById("confirmationMessage");
-const paymentSummary = document.getElementById("payment-summary");
-const selectedPaymentMethod = document.getElementById("selectedPaymentMethod");
-const orderNumber = document.getElementById("orderNumber");
-const goToPartsBtn = document.getElementById("goToParts");
-
-// Renderizar carrito en pantalla
+// Mostrar carrito
 function renderCart() {
   if (!cartItemsDiv || !totalDiv) return;
 
@@ -56,6 +55,7 @@ function renderCart() {
     cartItemsDiv.innerHTML = "<p>Your cart is empty.</p>";
     totalDiv.textContent = "";
     cartActions.classList.add("hidden");
+    updateCartCount();
     return;
   }
 
@@ -73,9 +73,12 @@ function renderCart() {
     paymentSummary.textContent = `Total: $${total.toFixed(2)}`;
   }
   cartActions.classList.remove("hidden");
+
+  //  Refrescar contador
+  updateCartCount();
 }
 
-// Mostrar cada producto del carrito
+// Mostrar un solo ítem del carrito
 function renderCartItem(item, index) {
   const itemDiv = document.createElement("div");
   itemDiv.className = "cart-item";
@@ -87,7 +90,7 @@ function renderCartItem(item, index) {
   cartItemsDiv.appendChild(itemDiv);
 }
 
-// Eliminar un producto del carrito
+// Eliminar producto del carrito
 function removeItem(index) {
   cart.splice(index, 1);
   localStorage.setItem("cart", JSON.stringify(cart));
@@ -95,7 +98,7 @@ function removeItem(index) {
   renderCart();
 }
 
-// Vaciar completamente el carrito
+// Vaciar el carrito
 function clearCart() {
   cart = [];
   localStorage.removeItem("cart");
@@ -103,7 +106,17 @@ function clearCart() {
   renderCart();
 }
 
-// Detectar clics en botones dinámicos para eliminar productos
+//  Contador reutilizable
+function updateCartCount() {
+  const countSpan = document.getElementById("cart-count");
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  if (countSpan) {
+    countSpan.textContent = cart.length;
+  }
+}
+
+// Detectar clics para eliminar
 document.addEventListener("click", function (e) {
   if (e.target.classList.contains("remove-btn")) {
     const index = parseInt(e.target.getAttribute("data-index"));
@@ -111,52 +124,49 @@ document.addEventListener("click", function (e) {
   }
 });
 
-// Cargar el carrito al iniciar la página
+// Inicializar carrito
 document.addEventListener("DOMContentLoaded", () => {
   cart = JSON.parse(localStorage.getItem("cart")) || [];
   renderCart();
 });
 
-// Mostrar modal al dar clic en "Completar compra"
+// Botón para mostrar modal de pago
 purchaseBtn.addEventListener("click", () => {
   modal.style.display = "flex";
 });
 
-// Cerrar modal con la X
+// Cerrar modal
 closeModal.addEventListener("click", () => {
   modal.style.display = "none";
 });
 
-// Procesar pago simulado
+// Confirmar pago
 paymentForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
   const selectedOption = paymentForm.querySelector('input[name="method"]:checked');
-  const paymentMethod = selectedOption ? selectedOption.parentElement.textContent.trim() : "No especificado";
+  const paymentMethod = selectedOption ? selectedOption.parentElement.textContent.trim() : "Not specified";
 
   const orderId = `ORD-${Math.floor(100000 + Math.random() * 900000)}`;
 
-  // Ocultar modal y mostrar confirmación
   modal.style.display = "none";
   confirmationMessage.classList.remove("hidden");
 
   selectedPaymentMethod.textContent = `Payment method: ${paymentMethod}`;
   orderNumber.textContent = `Order number: ${orderId}`;
 
-  // Limpiar carrito y actualizar vista
   localStorage.removeItem("cart");
   cart = [];
   renderCart();
 
-  // Hacer scroll al mensaje
   confirmationMessage.scrollIntoView({ behavior: "smooth" });
 });
 
-// Botón para ir a la página de partes
+// Ir a partes
 goToPartsBtn.addEventListener("click", () => {
   confirmationMessage.classList.add("hidden");
   window.location.href = "../paginas/partes.html";
 });
 
-// Hacer funcional el botón "Vaciar carrito"
+// Botón para vaciar
 clearCartBtn.addEventListener("click", clearCart);

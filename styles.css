@@ -262,7 +262,6 @@ main {
   color: #555;
 }
 
-.input-group input,
 input[type="text"],
 input[type="password"] {
   width: 100%;
@@ -271,6 +270,7 @@ input[type="password"] {
   border: 1px solid #ccc;
   border-radius: 5px;
 }
+
 
 button[type="submit"] {
   width: 100%;
@@ -398,3 +398,25 @@ button[type="submit"]:hover {
   color: white;
   font-weight: bold;
 }
+
+
+
+
+/* Contador visual del carrito */
+.cart-link {
+  position: relative;
+  display: inline-block;
+}
+
+
+#cart-count, .cart-count {
+  margin-left: 5px;
+  font-weight: bold;
+  color: white;
+  background-color: red;
+  padding: 2px 6px;
+  border-radius: 50%;
+  font-size: 14px;
+  transition: transform 0.3s ease;
+}
+
