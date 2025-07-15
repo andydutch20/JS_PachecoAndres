@@ -1,4 +1,3 @@
-// ✅ carrito.js corregido sin múltiples eventos DOMContentLoaded y listo para scripts al final del <body>
 
 let cart = [];
 const cartItemsDiv = document.getElementById("cart-items");

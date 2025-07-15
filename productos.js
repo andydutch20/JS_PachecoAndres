@@ -1,4 +1,4 @@
-// ✅ Array con todos los productos definidos en JavaScript
+// Array con todos los productos definidos en JavaScript
 const products = [
   // Productos de la categoría "partes"
   {
@@ -46,7 +46,7 @@ const products = [
   }
 ];
 
-// ✅ Inicializar al cargar el script
+//  Inicializar al cargar el script
 initProductPage();
 
 function initProductPage() {
@@ -64,7 +64,7 @@ function initProductPage() {
   if (storedType !== "product") showMessage("");
 }
 
-// ✅ Renderizar productos por categoría
+//  Renderizar productos por categoría
 function renderProducts(category) {
   const container = document.getElementById("product-list");
   if (!container) return;
@@ -97,7 +97,7 @@ function renderProducts(category) {
   });
 }
 
-// ✅ Agregar producto al carrito sin duplicados
+//  Agregar producto al carrito sin duplicados
 function addToCart(button) {
   const user = sessionStorage.getItem("loggedInUser");
   if (!user) {
@@ -132,7 +132,7 @@ function addToCart(button) {
   updateCartCount();
 }
 
-// ✅ Mostrar mensaje temporal
+// Mostrar mensaje temporal
 function showMessage(text, color = "green", type = "product") {
   const msg = document.getElementById("message");
   if (!msg) return;
@@ -153,7 +153,7 @@ function showMessage(text, color = "green", type = "product") {
   }, 2500);
 }
 
-// ✅ Actualizar contador del carrito con animación
+// Actualizar contador del carrito con animación
 function updateCartCount() {
   const countSpan = document.getElementById("cart-count");
   const cart = JSON.parse(localStorage.getItem("cart")) || [];

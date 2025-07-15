@@ -1,4 +1,4 @@
-// Iniciar al cargar el script (sin DOMContentLoaded)
+
 mostrarClima("Guadalajara,MX");
 
 async function mostrarClima(ciudad) {
@@ -50,3 +50,18 @@ async function mostrarClima(ciudad) {
     weatherDiv.textContent = "No se pudo cargar el clima.";
   }
 }
+
+//  Función para actualizar el contador del carrito al cargar index.html
+function updateCartCount() {
+  const countSpan = document.getElementById("cart-count");
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+
+  if (countSpan) {
+    countSpan.textContent = totalItems;
+    countSpan.classList.add("animate");
+    setTimeout(() => countSpan.classList.remove("animate"), 300);
+  }
+}
+//  Ejecutar contador al cargar el index
+updateCartCount();
