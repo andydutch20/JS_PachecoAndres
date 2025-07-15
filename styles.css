@@ -1,32 +1,33 @@
-/* Estilos globales */
+/* Reset de márgenes y padding para todos los elementos */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-html,
-body {
+/* Estilos generales de la página */
+html, body {
   background-color: rgba(53, 59, 64, 0.554);
   height: 100%;
   width: 100%;
   font-family: Arial, sans-serif;
 }
 
+/* Contenedor principal */
 .wrapper {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
 
-/* Botón general */
+/* Estilo base de botones */
 button {
   padding: 10px 15px;
   margin-top: 10px;
   cursor: pointer;
 }
 
-/* Header */
+/* Encabezado */
 header {
   background-color: rgb(17, 98, 184);
   padding: 20px;
@@ -37,7 +38,7 @@ h1 {
   color: rgb(232, 226, 226);
 }
 
-/* navegación */
+/* Sub-encabezado con navegación */
 .sub-header {
   background-color: forestgreen;
   display: flex;
@@ -62,18 +63,20 @@ h1 {
   font-size: 18px;
 }
 
+/* Icono del carrito */
 .carritoicono {
   width: 32px;
   height: 32px;
   cursor: pointer;
 }
 
-/* contenido central */
+/* Contenido principal */
 main {
   flex: 1;
   padding: 20px;
 }
 
+/* Sección de descripción del proyecto */
 #project-description {
   padding: 20px;
   background-color: #f4f4f4;
@@ -91,7 +94,7 @@ main {
   margin-top: 10px;
 }
 
-/* footer */
+/* Pie de página */
 .footer {
   padding: 20px;
   background-color: rgb(13, 17, 16);
@@ -100,14 +103,13 @@ main {
   width: 100%;
 }
 
-/* lista de productos */
+/* Lista de productos horizontal */
 #product-list {
   display: flex;
   gap: 20px;
   padding: 20px;
   overflow-x: auto;
   scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
   white-space: nowrap;
 }
 
@@ -150,11 +152,10 @@ main {
 
 .product p {
   word-wrap: break-word;
-  overflow-wrap: break-word;
   white-space: normal;
 }
 
-/* página de carrito de compras */
+/* Carrito de compras */
 #cart-items {
   padding: 20px;
 }
@@ -173,7 +174,6 @@ main {
 .cart-item img {
   border-radius: 8px;
   width: 100px;
-  height: auto;
 }
 
 .cart-item p {
@@ -188,6 +188,7 @@ main {
   border-radius: 5px;
 }
 
+/* Total de compra */
 #total {
   font-size: 20px;
   margin-top: 20px;
@@ -203,20 +204,12 @@ main {
   border-radius: 6px;
 }
 
-/* Mensajes */
+/* Caja de mensajes */
 #message {
-  padding: 10px;
-  margin: 0;
-  font-weight: bold;
-  background-color: #333;
-  border-radius: 5px;
   display: none;
 }
 
-#message:empty {
-  display: none;
-}
-
+/* Mensajes tipo alerta */
 .message {
   text-align: center;
   margin: 10px auto;
@@ -224,18 +217,30 @@ main {
   border-radius: 5px;
   width: fit-content;
   font-weight: bold;
+  display: none;
 }
 
-.message.success { background: #d4edda; color: #155724; }
-.message.error { background: #f8d7da; color: #721c24; }
-.message.info { background: #d1ecf1; color: #0c5460; }
+.message.success {
+  background: #d4edda;
+  color: #155724;
+}
 
-/* Ocultar elementos */
+.message.error {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.message.info {
+  background: #d1ecf1;
+  color: #0c5460;
+}
+
+/* Clase para ocultar elementos */
 .hidden {
   display: none !important;
 }
 
-/* estilos de login */
+/* Estilos del login */
 .login-container {
   width: 350px;
   max-width: 400px;
@@ -266,11 +271,9 @@ input[type="text"],
 input[type="password"] {
   width: 100%;
   padding: 10px;
-  box-sizing: border-box;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
-
 
 button[type="submit"] {
   width: 100%;
@@ -294,10 +297,8 @@ button[type="submit"]:hover {
 
 .login-modal {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
   background-color: rgba(0,0,0,0.5);
   display: flex;
   justify-content: center;
@@ -312,7 +313,6 @@ button[type="submit"]:hover {
   font-size: 18px;
 }
 
-/* Enlaces tipo botón */
 .link-button {
   background: none;
   border: none;
@@ -322,20 +322,16 @@ button[type="submit"]:hover {
   font-size: 1em;
 }
 
-/* Estilos para el fondo oscuro del modal */
 .modal {
   display: none;
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
   background: rgba(0,0,0,0.6);
   justify-content: center;
   align-items: center;
 }
 
-/* Estilo de la caja blanca del modal */
 .modal-content {
   background: #fff;
   padding: 20px;
@@ -343,14 +339,12 @@ button[type="submit"]:hover {
   border-radius: 8px;
 }
 
-/* Botón de cerrar (X) */
 .close {
   float: right;
   cursor: pointer;
   font-size: 20px;
 }
 
-/* Estilo del mensaje de confirmación */
 .confirmation {
   background-color: #e6ffe6;
   border: 1px solid #66cc66;
@@ -359,7 +353,7 @@ button[type="submit"]:hover {
   text-align: center;
 }
 
-/* Contenedor para los botones de acción del carrito */
+/* Botones del carrito */
 .cart-actions {
   display: flex;
   gap: 10px;
@@ -378,7 +372,7 @@ button[type="submit"]:hover {
   background: #333;
 }
 
-/* Icono de login y texto */
+/* Contenedor icono login */
 .login-box {
   display: flex;
   flex-direction: column;
@@ -399,15 +393,11 @@ button[type="submit"]:hover {
   font-weight: bold;
 }
 
-
-
-
-/* Contador visual del carrito */
+/* Contador del carrito */
 .cart-link {
   position: relative;
   display: inline-block;
 }
-
 
 #cart-count, .cart-count {
   margin-left: 5px;
@@ -420,3 +410,15 @@ button[type="submit"]:hover {
   transition: transform 0.3s ease;
 }
 
+.cart-count.animate {
+  transform: scale(1.4);
+}
+
+/* Caja del clima */
+.weather-box {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 10px;
+  color: white;
+}

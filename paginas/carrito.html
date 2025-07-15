@@ -12,17 +12,18 @@
       <h1>Hi welcome to my online store</h1>
     </header>
 
-    <div id="message" style="display: none;"></div>
+    <!-- Mensaje para mostrar alertas temporales -->
+    <div id="message" class="message" style="display: none;"></div>
 
     <div class="sub-header">
       <nav class="nav-links">
         <a href="../index.html">Home</a>
         <a href="../paginas/partes.html">Parts</a>
         <a href="../paginas/bicis-completas.html">Complete Bikes</a>
-<a href="../paginas/carrito.html" class="cart-link">
-  <img src="../Iconos/carrito.png" class="carritoicono" alt="Carrito" />
-  <span id="cart-count" class="cart-count">0</span>
-</a>
+        <a href="../paginas/carrito.html" class="cart-link">
+          <img src="../Iconos/carrito.png" class="carritoicono" alt="Carrito" />
+          <span id="cart-count" class="cart-count">0</span>
+        </a>
       </nav>
     </div>
 
@@ -40,7 +41,7 @@
     <!-- Modal de pago simplificado -->
     <div id="paymentModal" class="modal">
       <div class="modal-content">
-        <span id="closeModal" class="close">&times;</span>
+        <span id="closeModal" class="close" aria-label="Close">&times;</span>
         <h2>Payment method</h2>
         <p id="payment-summary">Total: $0.00</p>
 

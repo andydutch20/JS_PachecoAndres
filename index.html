@@ -9,19 +9,19 @@
 <body>
   <div class="wrapper">
     <header>
-      <h1>Hi welcome to my online store</h1>
+      <h1>Hi, welcome to my online store</h1>
       <div id="welcomeMessage"></div>
 
-      <!-- Icono de login con texto debajo -->
+      <!-- Login icon and text -->
       <div class="login-box">
-        <img id="loginIcon" src="Iconos/login.svg" alt="Login" class="login-icono" />
+        <img id="loginIcon" src="Iconos/login.svg" alt="User login icon" class="login-icono" />
         <p class="login-text">Log in First!</p>
       </div>
 
       <button id="logoutBtn" class="hidden">Logout</button>
     </header>
 
-    <!-- mensaje global -->
+    <!-- Global message -->
     <div id="messageBox" class="hidden"></div>
 
     <div class="sub-header">
@@ -30,20 +30,18 @@
         <a href="paginas/partes.html">Parts</a>
         <a href="paginas/bicis-completas.html">Complete Bikes</a>
         <a href="paginas/carrito.html" class="cart-link">
-        <img src="Iconos/carrito.png" class="carritoicono" alt="Carrito" />
-        <span id="cart-count" class="cart-count">0</span>
+          <img src="Iconos/carrito.png" class="carritoicono" alt="Shopping cart icon" />
+          <span id="cart-count" class="cart-count">0</span>
         </a>
-
       </nav>
     </div>
 
-    <!-- Modal de Login/Registro -->
-    <div id="loginModal" class="login-modal hidden">
+    <!-- Login/Register Modal -->
+    <div id="loginModal" class="login-modal hidden" role="dialog" aria-modal="true">
       <div class="login-container">
-        <!-- Botón de cierre -->
-        <button id="closeLoginModal" class="close-button">X</button>
+        <button id="closeLoginModal" class="close-button" aria-label="Close login form">X</button>
 
-        <!-- Sección de Login -->
+        <!-- Login Section -->
         <div id="loginSection">
           <h2>Sign in</h2>
           <form id="loginForm">
@@ -60,10 +58,10 @@
             </div>
             <button type="submit">Sign in</button>
           </form>
-          <p>¿Don't have an account? <button id="showRegister" class="link-button">Register Here</button></p>
+          <p>Don't have an account? <button id="showRegister" class="link-button">Register Here</button></p>
         </div>
 
-        <!-- Sección de Registro -->
+        <!-- Register Section -->
         <div id="registerSection" class="hidden">
           <h2>Register</h2>
           <form id="registerForm">
@@ -77,7 +75,7 @@
             </div>
             <button type="submit">Register</button>
           </form>
-          <p>¿Already have an account? <button id="showLogin" class="link-button">Sign in</button></p>
+          <p>Already have an account? <button id="showLogin" class="link-button">Sign in</button></p>
         </div>
 
         <div id="loginMessage"></div>
@@ -96,10 +94,19 @@
       </section>
     </main>
 
-    <footer class="footer"></footer>
+    <!-- Weather box -->
+    <div id="weather" class="weather-box">
+      <p>Cargando clima...</p>
+    </div>
+
+    <footer class="footer">
+      <p>&copy; 2025 BMX Online Store</p>
+    </footer>
   </div>
 
-  <script src="productos.js"></script>
+  <!-- Scripts -->
+  <script src="productos.js" defer></script>
   <script src="login.js" defer></script>
+  <script src="index.js" defer></script>
 </body>
 </html>

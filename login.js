@@ -1,52 +1,53 @@
-// login.js
+// Elementos del DOM
+const loginForm = document.getElementById("loginForm");
+const registerForm = document.getElementById("registerForm");
+const loginMessage = document.getElementById("loginMessage");
+const loginModal = document.getElementById("loginModal");
+const welcomeMessage = document.getElementById("welcomeMessage");
+const logoutBtn = document.getElementById("logoutBtn");
+const loginIcon = document.getElementById("loginIcon");
+const loginSection = document.getElementById("loginSection");
+const registerSection = document.getElementById("registerSection");
+const showRegisterBtn = document.getElementById("showRegister");
+const showLoginBtn = document.getElementById("showLogin");
+const closeLoginModal = document.getElementById("closeLoginModal");
+const usernameInput = document.getElementById("username");
 
-document.addEventListener("DOMContentLoaded", () => {
-  // Obtener elementos del DOM
-  const loginForm = document.getElementById("loginForm");
-  const registerForm = document.getElementById("registerForm");
-  const loginMessage = document.getElementById("loginMessage");
-  const loginModal = document.getElementById("loginModal");
-  const welcomeMessage = document.getElementById("welcomeMessage");
-  const logoutBtn = document.getElementById("logoutBtn");
-  const loginIcon = document.getElementById("loginIcon");
-  const loginSection = document.getElementById("loginSection");
-  const registerSection = document.getElementById("registerSection");
-  const showRegisterBtn = document.getElementById("showRegister");
-  const showLoginBtn = document.getElementById("showLogin");
-  const closeLoginModal = document.getElementById("closeLoginModal");
+// ✅ Inicialización directa sin usar DOMContentLoaded
+initLogin();
 
-  // Mostrar sección de registro
+function initLogin() {
+  // Alternar entre login y registro
   showRegisterBtn.addEventListener("click", () => {
     loginSection.classList.add("hidden");
     registerSection.classList.remove("hidden");
   });
 
-  // Mostrar sección de login
   showLoginBtn.addEventListener("click", () => {
     registerSection.classList.add("hidden");
     loginSection.classList.remove("hidden");
   });
 
-  // Usuario recordado
+  // Autocompletar usuario recordado
   const rememberedUser = localStorage.getItem("rememberedUser");
-  const usernameInput = document.getElementById("username");
   if (rememberedUser) {
     usernameInput.value = rememberedUser;
     document.getElementById("rememberMe").checked = true;
   }
 
-  // Usuario logueado
+  // Si ya hay sesión activa, mostrar bienvenida
   const loggedInUser = sessionStorage.getItem("loggedInUser");
   if (loggedInUser) mostrarBienvenida(loggedInUser);
 
-  // Abrir modal al hacer clic en el icono
+  // Abrir modal de login desde ícono
   loginIcon.addEventListener("click", () => {
     loginModal.classList.remove("hidden");
   });
 
-  // Formulario de login
+  // Enviar login
   loginForm.addEventListener("submit", function (e) {
     e.preventDefault();
+
     const username = usernameInput.value.trim();
     const password = document.getElementById("password").value.trim();
     const remember = document.getElementById("rememberMe").checked;
@@ -56,12 +57,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (user) {
       sessionStorage.setItem("loggedInUser", username);
-      remember ? localStorage.setItem("rememberedUser", username) : localStorage.removeItem("rememberedUser");
+      remember
+        ? localStorage.setItem("rememberedUser", username)
+        : localStorage.removeItem("rememberedUser");
 
       mostrarBienvenida(username);
       mostrarMensaje("Login Success.", "success");
       ocultarModalLogin();
 
+      // Agregar producto pendiente después del login
       const pending = JSON.parse(sessionStorage.getItem("pendingProduct"));
       if (pending) {
         addToCart(pending);
@@ -73,13 +77,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Formulario de registro
+  // Enviar formulario de registro
   registerForm.addEventListener("submit", function (e) {
     e.preventDefault();
+
     const regUsername = document.getElementById("regUsername").value.trim();
     const regPassword = document.getElementById("regPassword").value.trim();
 
     let users = JSON.parse(localStorage.getItem("users")) || [];
+
     if (users.find(u => u.username === regUsername)) {
       mostrarMensaje("Username already exists.", "error");
       return;
@@ -89,55 +95,65 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("users", JSON.stringify(users));
 
     mostrarMensaje("Success. Now you can log in.", "success");
+
     registerForm.reset();
     registerSection.classList.add("hidden");
     loginSection.classList.remove("hidden");
+
     usernameInput.value = regUsername;
     document.getElementById("password").value = regPassword;
     usernameInput.focus();
   });
 
-  // Cerrar sesión
+  // Botón de logout
   logoutBtn.addEventListener("click", () => {
     sessionStorage.removeItem("loggedInUser");
-    mostrarMensaje("Session ended.", "info");
+
+    // ✅ Vaciar carrito al cerrar sesión
+    localStorage.removeItem("cart");
+
+    mostrarMensaje("Session ended. Cart cleared.", "info");
     location.reload();
   });
 
-  // Mostrar bienvenida
-  function mostrarBienvenida(username) {
-    welcomeMessage.textContent = `Welcome, ${username}!`;
-    logoutBtn.classList.remove("hidden");
-    loginIcon.classList.add("hidden");
-  }
-
-  // Mostrar login modal desde otros scripts
-  window.showLoginModal = function (product) {
-    if (product) sessionStorage.setItem("pendingProduct", JSON.stringify(product));
-    loginModal.classList.remove("hidden");
-  };
-
-  // Ocultar modal
-  function ocultarModalLogin() {
-    loginModal.classList.add("hidden");
-    loginMessage.textContent = "";
-  }
-
-  // Botón cerrar modal
+  // Cerrar modal con botón "X"
   if (closeLoginModal) {
     closeLoginModal.addEventListener("click", () => ocultarModalLogin());
   }
 
-  // Cerrar modal haciendo clic fuera del contenido
+  // Cerrar modal si se hace clic fuera del contenido
   document.addEventListener("click", function (e) {
     const container = document.querySelector(".login-container");
-    if (!loginModal.classList.contains("hidden") && !container.contains(e.target) && e.target !== loginIcon) {
+    if (!loginModal.classList.contains("hidden") &&
+        !container.contains(e.target) &&
+        e.target !== loginIcon) {
       ocultarModalLogin();
     }
   });
-});
+}
 
-// Mostrar mensaje global
+// Función para mostrar bienvenida
+function mostrarBienvenida(username) {
+  welcomeMessage.textContent = `Welcome, ${username}!`;
+  logoutBtn.classList.remove("hidden");
+  loginIcon.classList.add("hidden");
+}
+
+// Hacer accesible desde otros scripts
+window.showLoginModal = function (product) {
+  if (product) {
+    sessionStorage.setItem("pendingProduct", JSON.stringify(product));
+  }
+  loginModal.classList.remove("hidden");
+};
+
+// Ocultar login modal
+function ocultarModalLogin() {
+  loginModal.classList.add("hidden");
+  loginMessage.textContent = "";
+}
+
+// ✅ Función para mostrar mensajes visuales
 function mostrarMensaje(texto, tipo = "info") {
   const box = document.getElementById("messageBox");
   box.textContent = texto;

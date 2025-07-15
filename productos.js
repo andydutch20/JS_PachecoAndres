@@ -1,6 +1,104 @@
-// Función para agregar productos al carrito
+// ✅ Array con todos los productos definidos en JavaScript
+const products = [
+  // Productos de la categoría "partes"
+  {
+    id: "p1",
+    name: "Manillar BMX",
+    price: 120,
+    image: "../partes bmx/cuadro colony 2.jpg",
+    category: "partes"
+  },
+  {
+    id: "p2",
+    name: "Rines BMX",
+    price: 150,
+    image: "../partes bmx/cuadro colony.jpg",
+    category: "partes"
+  },
+  {
+    id: "p3",
+    name: "Pedales BMX",
+    price: 90,
+    image: "../partes bmx/cuadro fit miller 2.webp",
+    category: "partes"
+  },
+  // Bicis completas
+  {
+    id: "b1",
+    name: "Fit Complete Bike",
+    price: 500,
+    image: "../bicis completas/fit complete bike.avif",
+    category: "bicis"
+  },
+  {
+    id: "b2",
+    name: "King Complete Bike",
+    price: 550,
+    image: "../bicis completas/king complete bike.webp",
+    category: "bicis"
+  },
+  {
+    id: "b3",
+    name: "Stolen Complete Bike",
+    price: 480,
+    image: "../bicis completas/stolen complete bike.webp",
+    category: "bicis"
+  }
+];
+
+// ✅ Inicializar al cargar el script
+initProductPage();
+
+function initProductPage() {
+  const page = window.location.pathname.split("/").pop();
+
+  if (page === "partes.html") {
+    renderProducts("partes");
+  } else if (page === "bicis-completas.html") {
+    renderProducts("bicis");
+  }
+
+  updateCartCount();
+
+  const storedType = localStorage.getItem("messageType");
+  if (storedType !== "product") showMessage("");
+}
+
+// ✅ Renderizar productos por categoría
+function renderProducts(category) {
+  const container = document.getElementById("product-list");
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  const filtered = products.filter(p => p.category === category);
+
+  filtered.forEach(product => {
+    const div = document.createElement("div");
+    div.className = "product";
+    div.setAttribute("data-id", product.id);
+    div.setAttribute("data-name", product.name);
+    div.setAttribute("data-price", product.price);
+    div.setAttribute("data-image", product.image);
+
+    div.innerHTML = `
+      <img src="${product.image}" alt="${product.name}" />
+      <p>${product.name} - $${product.price}</p>
+      <button class="add-to-cart">Add to Cart</button>
+    `;
+
+    container.appendChild(div);
+  });
+
+  // Asociar eventos a botones después de renderizar
+  const buttons = container.querySelectorAll(".add-to-cart");
+  buttons.forEach(button => {
+    button.addEventListener("click", () => addToCart(button));
+  });
+}
+
+// ✅ Agregar producto al carrito sin duplicados
 function addToCart(button) {
-  // Verificar si el usuario está logueado
   const user = sessionStorage.getItem("loggedInUser");
   if (!user) {
     showMessage("You must log in to add products to the cart.", "red", "product");
@@ -14,76 +112,56 @@ function addToCart(button) {
   const image = productDiv.getAttribute("data-image");
 
   if (isNaN(price)) {
-    showMessage("Error: Invalid product price.", "red", "product");
+    showMessage("Invalid product price.", "red", "product");
     return;
   }
 
-  const product = { id, name, price, image };
+  const newProduct = { id, name, price, image, quantity: 1 };
 
-  // Obtener y actualizar el carrito
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
-  cart.push(product);
+  const existing = cart.find(p => p.id === id);
+
+  if (existing) {
+    existing.quantity += 1;
+  } else {
+    cart.push(newProduct);
+  }
+
   localStorage.setItem("cart", JSON.stringify(cart));
-
-  // Mostrar mensaje
-  showMessage(`"${name}" has been added to cart!`, "white", "product");
-
-  // Actualizar y animar contador
+  showMessage(`"${name}" added to cart!`, "white", "product");
   updateCartCount();
 }
 
-// Función para mostrar mensajes temporales
+// ✅ Mostrar mensaje temporal
 function showMessage(text, color = "green", type = "product") {
-  const messageDiv = document.getElementById("message");
-  if (!messageDiv) return;
+  const msg = document.getElementById("message");
+  if (!msg) return;
 
-  if (text) {
-    messageDiv.textContent = text;
-    messageDiv.style.color = color;
-    messageDiv.style.display = "block";
-    saveMessageToStorage(text, color, type);
-  } else {
-    clearMessageStorage();
-    messageDiv.textContent = "";
-    messageDiv.style.display = "none";
-  }
-}
+  msg.textContent = text;
+  msg.style.color = color;
+  msg.style.display = "block";
 
-// Guardar mensaje en localStorage
-function saveMessageToStorage(text, color, type) {
   localStorage.setItem("messageText", text);
   localStorage.setItem("messageColor", color);
   localStorage.setItem("messageType", type);
+
+  setTimeout(() => {
+    msg.style.display = "none";
+    localStorage.removeItem("messageText");
+    localStorage.removeItem("messageColor");
+    localStorage.removeItem("messageType");
+  }, 2500);
 }
 
-// Borrar mensaje
-function clearMessageStorage() {
-  localStorage.removeItem("messageText");
-  localStorage.removeItem("messageColor");
-  localStorage.removeItem("messageType");
-}
-
-// Actualizar y animar el contador del carrito
+// ✅ Actualizar contador del carrito con animación
 function updateCartCount() {
   const countSpan = document.getElementById("cart-count");
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
 
   if (countSpan) {
-    countSpan.textContent = cart.length;
+    countSpan.textContent = totalItems;
     countSpan.classList.add("animate");
     setTimeout(() => countSpan.classList.remove("animate"), 300);
   }
 }
-
-// Al cargar la página, asignar eventos y mostrar cantidad
-document.addEventListener("DOMContentLoaded", () => {
-  const storedType = localStorage.getItem("messageType");
-  if (storedType !== "product") showMessage("");
-
-  const buttons = document.querySelectorAll(".add-to-cart");
-  buttons.forEach(button => {
-    button.addEventListener("click", () => addToCart(button));
-  });
-
-  updateCartCount();
-});
