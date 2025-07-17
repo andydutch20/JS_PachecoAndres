@@ -46,9 +46,10 @@ const products = [
   }
 ];
 
-//  Inicializar al cargar el script
+// Ejecutar al cargar el archivo
 initProductPage();
 
+// Inicializa la página de productos dependiendo del archivo HTML abierto
 function initProductPage() {
   const page = window.location.pathname.split("/").pop();
 
@@ -59,12 +60,9 @@ function initProductPage() {
   }
 
   updateCartCount();
-
-  const storedType = localStorage.getItem("messageType");
-  if (storedType !== "product") showMessage("");
 }
 
-//  Renderizar productos por categoría
+// Renderiza los productos según su categoría
 function renderProducts(category) {
   const container = document.getElementById("product-list");
   if (!container) return;
@@ -90,18 +88,18 @@ function renderProducts(category) {
     container.appendChild(div);
   });
 
-  // Asociar eventos a botones después de renderizar
+  // Asociar evento click a los botones después de renderizar
   const buttons = container.querySelectorAll(".add-to-cart");
   buttons.forEach(button => {
     button.addEventListener("click", () => addToCart(button));
   });
 }
 
-//  Agregar producto al carrito sin duplicados
+// Agrega un producto al carrito validando sesión y duplicados
 function addToCart(button) {
   const user = sessionStorage.getItem("loggedInUser");
   if (!user) {
-    showMessage("You must log in to add products to the cart.", "red", "product");
+    showAlert("You must log in to add products to the cart.", "warning");
     return;
   }
 
@@ -112,7 +110,7 @@ function addToCart(button) {
   const image = productDiv.getAttribute("data-image");
 
   if (isNaN(price)) {
-    showMessage("Invalid product price.", "red", "product");
+    showAlert("Invalid product price.", "error");
     return;
   }
 
@@ -128,32 +126,24 @@ function addToCart(button) {
   }
 
   localStorage.setItem("cart", JSON.stringify(cart));
-  showMessage(`"${name}" added to cart!`, "white", "product");
   updateCartCount();
+
+  showAlert(`"${name}" added to cart!`, "success");
 }
 
-// Mostrar mensaje temporal
-function showMessage(text, color = "green", type = "product") {
-  const msg = document.getElementById("message");
-  if (!msg) return;
-
-  msg.textContent = text;
-  msg.style.color = color;
-  msg.style.display = "block";
-
-  localStorage.setItem("messageText", text);
-  localStorage.setItem("messageColor", color);
-  localStorage.setItem("messageType", type);
-
-  setTimeout(() => {
-    msg.style.display = "none";
-    localStorage.removeItem("messageText");
-    localStorage.removeItem("messageColor");
-    localStorage.removeItem("messageType");
-  }, 2500);
+// Muestra una alerta visual usando SweetAlert
+function showAlert(message, icon = "info") {
+  Swal.fire({
+    text: message,
+    icon: icon,
+    timer: 2000,
+    showConfirmButton: false,
+    toast: true,
+    position: "top-end"
+  });
 }
 
-// Actualizar contador del carrito con animación
+// Actualiza el contador del carrito visualmente con animación
 function updateCartCount() {
   const countSpan = document.getElementById("cart-count");
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -162,6 +152,9 @@ function updateCartCount() {
   if (countSpan) {
     countSpan.textContent = totalItems;
     countSpan.classList.add("animate");
-    setTimeout(() => countSpan.classList.remove("animate"), 300);
+
+    setTimeout(() => {
+      countSpan.classList.remove("animate");
+    }, 300);
   }
 }

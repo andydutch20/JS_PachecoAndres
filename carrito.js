@@ -1,4 +1,3 @@
-
 let cart = [];
 const cartItemsDiv = document.getElementById("cart-items");
 const totalDiv = document.getElementById("total");
@@ -14,7 +13,6 @@ const selectedPaymentMethod = document.getElementById("selectedPaymentMethod");
 const orderNumber = document.getElementById("orderNumber");
 const goToPartsBtn = document.getElementById("goToParts");
 const countSpan = document.getElementById("cart-count");
-const messageDiv = document.getElementById("message");
 
 init(); // Inicializar al cargar el script
 
@@ -22,8 +20,6 @@ function init() {
   cart = JSON.parse(localStorage.getItem("cart")) || [];
   renderCart();
   updateCartCount();
-
-  if (localStorage.getItem("messageType") !== "product") showMessage("");
 
   const buttons = document.querySelectorAll(".add-to-cart");
   buttons.forEach(button => {
@@ -60,6 +56,13 @@ function init() {
     cart = [];
     renderCart();
     confirmationMessage.scrollIntoView({ behavior: "smooth" });
+
+    Swal.fire({
+      icon: 'success',
+      title: 'Purchase completed!',
+      html: `<strong>${paymentMethod}</strong><br>Order number: <code>${orderId}</code>`,
+      confirmButtonColor: '#3085d6'
+    });
   });
 
   goToPartsBtn?.addEventListener("click", () => {
@@ -70,41 +73,24 @@ function init() {
   clearCartBtn?.addEventListener("click", clearCart);
 }
 
-function showMessage(text, color = "green", type = "cart") {
-  if (!messageDiv) return;
-  messageDiv.textContent = text;
-  messageDiv.style.color = color;
-  messageDiv.style.display = "block";
-  saveMessageToStorage(text, color, type);
-
-  setTimeout(() => {
-    messageDiv.style.display = "none";
-    clearMessageStorage();
-  }, 3000);
-}
-
-function saveMessageToStorage(text, color, type) {
-  localStorage.setItem("messageText", text);
-  localStorage.setItem("messageColor", color);
-  localStorage.setItem("messageType", type);
-}
-
-function clearMessageStorage() {
-  localStorage.removeItem("messageText");
-  localStorage.removeItem("messageColor");
-  localStorage.removeItem("messageType");
-}
-
 function renderCart() {
   if (!cartItemsDiv || !totalDiv) return;
   cartItemsDiv.innerHTML = "";
 
   if (cart.length === 0) {
-    showMessage("Cart is empty.", "white", "cart");
     cartItemsDiv.innerHTML = "<p>Your cart is empty.</p>";
     totalDiv.textContent = "";
     cartActions.classList.add("hidden");
     updateCartCount();
+
+    Swal.fire({
+      icon: 'info',
+      title: 'Cart is empty',
+      text: 'No products have been added yet.',
+      timer: 2000,
+      showConfirmButton: false
+    });
+
     return;
   }
 
@@ -152,17 +138,30 @@ function decreaseQuantity(index) {
 }
 
 function removeItem(index) {
+  const removedItem = cart[index].name;
   cart.splice(index, 1);
   localStorage.setItem("cart", JSON.stringify(cart));
-  showMessage("Item removed from cart.", "orange", "cart");
   renderCart();
+
+  Swal.fire({
+    icon: 'warning',
+    title: `"${removedItem}" removed from cart.`,
+    timer: 1500,
+    showConfirmButton: false
+  });
 }
 
 function clearCart() {
   cart = [];
   localStorage.removeItem("cart");
-  showMessage("Cart cleared.", "red", "cart");
   renderCart();
+
+  Swal.fire({
+    icon: 'warning',
+    title: 'Cart cleared',
+    timer: 1500,
+    showConfirmButton: false
+  });
 }
 
 function updateCartCount() {
@@ -178,7 +177,12 @@ function updateCartCount() {
 function addToCart(button) {
   const user = sessionStorage.getItem("loggedInUser");
   if (!user) {
-    showMessage("You must log in to add products to the cart.", "red", "product");
+    Swal.fire({
+      icon: 'error',
+      title: 'Login required',
+      text: 'You must log in to add products to the cart.',
+      confirmButtonColor: '#d33'
+    });
     return;
   }
 
@@ -189,7 +193,12 @@ function addToCart(button) {
   const image = productDiv.getAttribute("data-image");
 
   if (isNaN(price)) {
-    showMessage("Error: Invalid product price.", "red", "product");
+    Swal.fire({
+      icon: 'error',
+      title: 'Invalid price',
+      text: 'Error: Invalid product price.',
+      confirmButtonColor: '#d33'
+    });
     return;
   }
 
@@ -205,8 +214,13 @@ function addToCart(button) {
   }
 
   localStorage.setItem("cart", JSON.stringify(cart));
-  showMessage(`"${name}" has been added to cart!`, "white", "product");
   updateCartCount();
+
+  Swal.fire({
+    icon: 'success',
+    title: 'Added to cart',
+    text: `"${name}" has been added!`,
+    timer: 1500,
+    showConfirmButton: false
+  });
 }
-
-
