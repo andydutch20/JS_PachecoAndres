@@ -5,7 +5,7 @@ const products = [
     id: "p1",
     name: "Manillar BMX",
     price: 120,
-    image: "../partes bmx/cuadro colony 2.jpg",
+    image: "../partes bmx/cuadrocolony2.jpg",
     category: "partes"
   },
   {
