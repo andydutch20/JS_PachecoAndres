@@ -5,21 +5,21 @@ const products = [
     id: "p1",
     name: "Manillar BMX",
     price: 120,
-    image: "../partes bmx/cuadrocolony2.jpg",
+    image: "../partes-bmx/cuadrocolony2.jpg",
     category: "partes"
   },
   {
     id: "p2",
     name: "Rines BMX",
     price: 150,
-    image: "../partes bmx/cuadro colony.jpg",
+    image: "../partes-bmx/cuadro colony.jpg",
     category: "partes"
   },
   {
     id: "p3",
     name: "Pedales BMX",
     price: 90,
-    image: "../partes bmx/cuadro fit miller 2.webp",
+    image: "../partes-bmx/cuadro fit miller 2.webp",
     category: "partes"
   },
   // Bicis completas
