@@ -13,6 +13,10 @@ html, body {
   width: 100%;
   font-family: Arial, sans-serif;
 }
+body {
+  background-image: url(Iconos/dumexique.JPG);
+}
+
 
 
 /* Contenedor principal */
@@ -31,7 +35,7 @@ button {
 
 /* Encabezado */
 header {
-  background-color: rgb(17, 98, 184);
+  background-color: rgba(5, 147, 235, 0.657);
   padding: 20px;
   text-align: center;
   flex-direction: column; /* En móvil, uno debajo de otro */
@@ -46,7 +50,7 @@ h1 {
 
 /* Sub-encabezado con navegación */
 .sub-header {
-  background-color: forestgreen;
+  background-color: rgb(186, 9, 103);
   display: flex;
   align-items: center;
   justify-content: space-between;
