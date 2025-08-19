@@ -3,23 +3,23 @@ const products = [
   // Productos de la categoría "partes"
   {
     id: "p1",
-    name: "Manillar BMX",
+    name: "Cuadro colony v1",
     price: 120,
     image: "../partes-bmx/cuadrocolony2.jpg",
     category: "partes"
   },
   {
     id: "p2",
-    name: "Rines BMX",
+    name: "Cuadro colony v2",
     price: 150,
-    image: "../partes-bmx/cuadro colony.jpg",
+    image: "../partes-bmx/cuadro-colony.jpg",
     category: "partes"
   },
   {
     id: "p3",
-    name: "Pedales BMX",
+    name: " Cuadro fit miller",
     price: 90,
-    image: "../partes-bmx/cuadro fit miller 2.webp",
+    image: "../partes-bmx/cuadro-fit-miller-2.webp",
     category: "partes"
   },
   // Bicis completas
