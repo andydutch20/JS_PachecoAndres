@@ -446,17 +446,8 @@ button[type="submit"]:hover {
     .carritoicono {
         margin-top: 0;
     }
-
-    /* Grid de productos: 2 columnas */
-    #product-list {
-        grid-template-columns: repeat(2, 1fr);
-    }
 }
 
 /* === Media queries para pantallas grandes (PC) === */
 @media (min-width: 1024px) {
-    /* Grid de productos: 4 columnas */
-    #product-list {
-        grid-template-columns: repeat(4, 1fr);
-    }
 }

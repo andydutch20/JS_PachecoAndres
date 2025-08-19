@@ -5,7 +5,7 @@ const products = [
     id: "p1",
     name: "Cuadro colony v1",
     price: 120,
-    image: "../partes-bmx/cuadrocolony2.jpg",
+    image: "../partes-bmx/cuadro-colony1.jpg",
     category: "partes"
   },
   {
