@@ -5,14 +5,14 @@ const products = [
     id: "p1",
     name: "Cuadro colony v1",
     price: 120,
-    image: "../partes-bmx/cuadro-colony1.jpg",
+    image: "/partes-bmx/cuadro-colony1.jpg",
     category: "partes"
   },
   {
     id: "p2",
     name: "Cuadro colony v2",
     price: 150,
-    image: "../partes-bmx/cuadro-colony.jpg",
+    image: "/partes-bmx/cuadro-colony.jpg",
     category: "partes"
   },
   {
