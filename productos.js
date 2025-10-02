@@ -19,7 +19,7 @@ const products = [
     id: "p3",
     name: " Cuadro fit miller",
     price: 90,
-    image: "../partes-bmx/cuadro-fit-miller-2.webp",
+    image: "/partes-bmx/cuadro-fit-miller-2.webp",
     category: "partes"
   },
   // Bicis completas
@@ -27,21 +27,21 @@ const products = [
     id: "b1",
     name: "Fit Complete Bike",
     price: 500,
-    image: "../bicis completas/fit complete bike.avif",
+    image: "/bicis-completas/fit-complete-bike.avif",
     category: "bicis"
   },
   {
     id: "b2",
     name: "King Complete Bike",
     price: 550,
-    image: "../bicis completas/king complete bike.webp",
+    image: "/bicis-completas/king-complete-bike.webp",
     category: "bicis"
   },
   {
     id: "b3",
     name: "Stolen Complete Bike",
     price: 480,
-    image: "../bicis completas/stolen complete bike.webp",
+    image: "/bicis-completas/stolen-complete-bike.webp",
     category: "bicis"
   }
 ];
