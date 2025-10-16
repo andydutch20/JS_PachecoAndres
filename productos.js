@@ -5,21 +5,21 @@ const products = [
     id: "p1",
     name: "Cuadro colony v1",
     price: 120,
-    image: "/partes-bmx/cuadro-colony1.jpg",
+    image: "/piezas/cuadro-colony1.jpg",
     category: "partes"
   },
   {
     id: "p2",
     name: "Cuadro colony v2",
     price: 150,
-    image: "/partes-bmx/cuadro-colony.jpg",
+    image: "/piezas/cuadro-colony.jpg",
     category: "partes"
   },
   {
     id: "p3",
     name: " Cuadro fit miller",
     price: 90,
-    image: "/partes-bmx/cuadro-fit-miller-2.webp",
+    image: "/piezas/cuadro-fit-miller-2.webp",
     category: "partes"
   },
   // Bicis completas
@@ -27,21 +27,21 @@ const products = [
     id: "b1",
     name: "Fit Complete Bike",
     price: 500,
-    image: "/bicis-completas/fit-complete-bike.avif",
+    image: "/completes/fit-complete-bike.avif",
     category: "bicis"
   },
   {
     id: "b2",
     name: "King Complete Bike",
     price: 550,
-    image: "/bicis-completas/king-complete-bike.webp",
+    image: "/completes/king-complete-bike.webp",
     category: "bicis"
   },
   {
     id: "b3",
     name: "Stolen Complete Bike",
     price: 480,
-    image: "/bicis-completas/stolen-complete-bike.webp",
+    image: "/completes/stolen-complete-bike.webp",
     category: "bicis"
   }
 ];
