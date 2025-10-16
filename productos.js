@@ -5,7 +5,7 @@ const products = [
     id: "p1",
     name: "Cuadro colony v1",
     price: 120,
-    image: "./piezas/colony1.jpg",
+    image: "../piezas/colony1.jpg",
     category: "partes"
   },
   {
